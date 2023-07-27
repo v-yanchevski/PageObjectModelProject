@@ -1,5 +1,6 @@
 package tests;
 
+import data_providers.StandardUserCredentials;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -23,16 +24,15 @@ public class LoginPageTest {
         loginPage.navigateToURL();
     }
 
-    @Test
-    public void pageTitleComparison() {
-        loginPage.enterUsername("standard_user");
-        loginPage.enterPassword("secret_sauce");
+    @Test(dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class)
+    public void standardCredentialsLogin(String userName, String password) {
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         loginPage.clickLoginBtn();
 
-        String expectedTitle = "Swag Labs";
         String actualTitle = loginPage.getPageTitle();
 
-        Assert.assertEquals(actualTitle, expectedTitle, "Actual title is " + actualTitle);
+        Assert.assertEquals(actualTitle, "Swag Labs", "Actual title is " + actualTitle);
     }
 
     @AfterMethod

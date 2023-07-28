@@ -11,8 +11,9 @@ import java.time.Duration;
 
 public class LoginPage {
     private final WebDriver driver;
-
     private final WebDriverWait wait;
+    private final String URL = "https://www.saucedemo.com/";
+
 
     @FindBy(id = "user-name")
     WebElement usernameInput;
@@ -23,6 +24,9 @@ public class LoginPage {
     @FindBy(id = "login-button")
     WebElement loginButton;
 
+    @FindBy(xpath = "//h3")
+    WebElement errorMessages;
+
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -31,8 +35,10 @@ public class LoginPage {
     }
 
     public void navigateToURL() {
-        driver.get("https://www.saucedemo.com/");
+
+        driver.get(URL);
     }
+
     public void enterUsername(String userName) {
         wait.until(ExpectedConditions.visibilityOf(usernameInput));
         usernameInput.click();
@@ -51,6 +57,11 @@ public class LoginPage {
     }
 
     public String getPageTitle() {
+
         return driver.getTitle();
+    }
+
+    public String getErrorMessages() {
+        return errorMessages.getText();
     }
 }

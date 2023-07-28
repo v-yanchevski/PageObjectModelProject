@@ -1,5 +1,6 @@
 package tests;
 
+import data_providers.LockedOutUser;
 import data_providers.StandardUserCredentials;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +25,7 @@ public class LoginPageTest {
         loginPage.navigateToURL();
     }
 
-    @Test(dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class)
+    @Test(priority =1,dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class)
     public void standardCredentialsLogin(String userName, String password) {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -35,8 +36,19 @@ public class LoginPageTest {
         Assert.assertEquals(actualTitle, "Swag Labs", "Actual title is " + actualTitle);
     }
 
+    @Test(priority =2,dataProvider = "locked user", dataProviderClass = LockedOutUser.class)
+    public void lockedUserLogin(String userName, String password) {
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
+        loginPage.clickLoginBtn();
+
+        String actualError = loginPage.getErrorMessages();
+        Assert.assertEquals(actualError, "Epic sadface: Sorry, this user has been locked out.", "Actual error is " + actualError);
+    }
+
     @AfterMethod
     public void tearDown() {
+
         driver.quit();
     }
 

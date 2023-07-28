@@ -8,8 +8,8 @@ public class StandardUserCredentials {
     public Object[][] sendStandardCredentials() {
         Object [][] data = {{"standard_user", "secret_sauce"}};
         return data;
-
         }
+
     }
 
 

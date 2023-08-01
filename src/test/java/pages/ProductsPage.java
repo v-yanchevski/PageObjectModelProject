@@ -5,14 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 import java.util.List;
 
-public class ProductsPage {
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class ProductsPage extends BasePage {
     private final String URL = "https://www.saucedemo.com/inventory.html";
 
     @FindBy(xpath = "//div[@class='inventory_item_name']")
@@ -31,21 +26,22 @@ public class ProductsPage {
     WebElement addToCartButtonIndex2;
 
     @FindBy(xpath = "//*[@id=\"shopping_cart_container\"]/a")
-    List<WebElement> shoppingCarIcon;
+    WebElement shoppingCarIcon;
 
     public ProductsPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
-    public void navigateToURL() {
 
-        driver.get(URL);
+    public void navigateToURL() {
+        super.navigateToURL(URL);
     }
+
     public void clickAddToCartButton() {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonIndex0)).click();
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonIndex2)).click();
     }
+
     public boolean areNamesVisible() {
         for (WebElement element : productsName) {
             if (!element.isDisplayed()) {
@@ -71,5 +67,9 @@ public class ProductsPage {
             }
         }
         return true;
+    }
+
+    public void clickOnShoppingCartIcon() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoppingCarIcon)).click();
     }
 }

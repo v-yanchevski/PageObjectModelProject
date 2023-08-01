@@ -6,13 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.annotations.Test;
 import pages.LoginPage;
-
 import java.time.Duration;
 
 public class LoginPageTest {
-
     private WebDriver driver;
     private LoginPage loginPage;
 
@@ -25,7 +22,7 @@ public class LoginPageTest {
         loginPage.navigateToURL();
     }
 
-    @Test(priority =1,dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class)
+    @Test(priority = 1, dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class)
     public void standardCredentialsLogin(String userName, String password) {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -36,7 +33,7 @@ public class LoginPageTest {
         Assert.assertEquals(actualTitle, "Swag Labs", "Actual title is " + actualTitle);
     }
 
-    @Test(priority =2,dataProvider = "locked user", dataProviderClass = LockedOutUser.class)
+    @Test(priority = 2, dataProvider = "locked user", dataProviderClass = LockedOutUser.class)
     public void lockedUserLogin(String userName, String password) {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -48,9 +45,6 @@ public class LoginPageTest {
 
     @AfterMethod
     public void tearDown() {
-
         driver.quit();
     }
-
-
 }

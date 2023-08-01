@@ -5,15 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 
-public class LoginPage {
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class LoginPage extends BasePage {
     private final String URL = "https://www.saucedemo.com/";
-
 
     @FindBy(id = "user-name")
     WebElement usernameInput;
@@ -27,16 +22,13 @@ public class LoginPage {
     @FindBy(xpath = "//h3")
     WebElement errorMessages;
 
-
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     public void navigateToURL() {
-
-        driver.get(URL);
+        super.navigateToURL(URL);
     }
 
     public void enterUsername(String userName) {
@@ -57,8 +49,7 @@ public class LoginPage {
     }
 
     public String getPageTitle() {
-
-        return driver.getTitle();
+        return super.getCurrentPageTitle();
     }
 
     public String getErrorMessages() {

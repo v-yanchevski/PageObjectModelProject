@@ -7,10 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.LoginPage;
 import pages.ProductsPage;
-
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
 
 public class ProductsPageTest {
     private WebDriver driver;
@@ -25,30 +22,26 @@ public class ProductsPageTest {
         productsPage.navigateToURL();
     }
 
-    @Test(dependsOnMethods = "standardCredentialsLogin")
+    @Test(priority = 3,dependsOnMethods = "standardCredentialsLogin")
     public void checkIfNamesAreVisible() {
         boolean areNamesVisible = productsPage.areNamesVisible();
         Assert.assertTrue(areNamesVisible);
     }
 
-
-    @Test(dependsOnMethods = "standardCredentialsLogin")
+    @Test(priority = 3,dependsOnMethods = "standardCredentialsLogin")
     public void checkIfPricesAreVisible() {
         boolean arePricesVisible = productsPage.arePricesVisible();
         Assert.assertTrue(arePricesVisible);
     }
 
-    @Test(dependsOnMethods = "standardCredentialsLogin")
+    @Test(priority = 1,dependsOnMethods = "standardCredentialsLogin")
     public void checkIfAddToCartIsVisible() {
         boolean areButtonsVisible = productsPage.areAddToCartVisible();
         Assert.assertTrue(areButtonsVisible);
-
     }
 
-
-    @Test(dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class)
+    @Test(priority =2, dataProvider = "standard credentials", dataProviderClass = StandardUserCredentials.class,dependsOnMethods = "checkIfAddToCartIsVisible")
     public void addToCart(String userName, String password) {
-
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToURL();
         loginPage.enterUsername(userName);
@@ -56,6 +49,8 @@ public class ProductsPageTest {
         loginPage.clickLoginBtn();
         productsPage = new ProductsPage(driver);
         productsPage.clickAddToCartButton();
+        productsPage.clickOnShoppingCartIcon();
+
     }
 
     @AfterClass
@@ -63,4 +58,3 @@ public class ProductsPageTest {
         driver.quit();
     }
 }
-

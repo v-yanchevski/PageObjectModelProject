@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.List;
 
 public class ProductsPage extends BasePage {
-    private final String URL = "https://www.saucedemo.com/inventory.html";
 
     @FindBy(xpath = "//div[@class='inventory_item_name']")
     List<WebElement> productsName;
@@ -28,14 +27,12 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"shopping_cart_container\"]/a")
     WebElement shoppingCarIcon;
 
+
     public ProductsPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void navigateToURL() {
-        super.navigateToURL(URL);
-    }
 
     public void clickAddToCartButton() {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonIndex0)).click();
@@ -71,5 +68,8 @@ public class ProductsPage extends BasePage {
 
     public void clickOnShoppingCartIcon() {
         wait.until(ExpectedConditions.elementToBeClickable(shoppingCarIcon)).click();
+    }
+    public String getPageTitle() {
+        return driver.getTitle();
     }
 }

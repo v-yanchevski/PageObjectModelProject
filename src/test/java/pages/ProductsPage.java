@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.util.List;
 
 public class ProductsPage extends BasePage {
@@ -24,8 +25,8 @@ public class ProductsPage extends BasePage {
     @FindBy(id = "add-to-cart-sauce-labs-bolt-t-shirt")
     WebElement addToCartButtonIndex2;
 
-    @FindBy(xpath = "//*[@id=\"shopping_cart_container\"]/a")
-    WebElement shoppingCarIcon;
+    @FindBy(css = "#shopping_cart_container")
+    WebElement shoppingCartIcon;
 
 
     public ProductsPage(WebDriver driver) {
@@ -33,8 +34,14 @@ public class ProductsPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    public ProductsPage successfulLogin(String userName, String password) {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
+        return loginPage.clickLoginBtn();
+    }
 
-    public void clickAddToCartButton() {
+    public void clickAddToCartButtons() {
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonIndex0)).click();
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonIndex2)).click();
     }
@@ -66,9 +73,20 @@ public class ProductsPage extends BasePage {
         return true;
     }
 
-    public void clickOnShoppingCartIcon() {
-        wait.until(ExpectedConditions.elementToBeClickable(shoppingCarIcon)).click();
+    public boolean isProductAddedToTheCart() {
+        wait.until(ExpectedConditions.visibilityOf(shoppingCartIcon));
+        String badgeValueText = shoppingCartIcon.getText();
+        int badgeValue = Integer.parseInt(badgeValueText);
+
+        return badgeValue > 0;
+
     }
+
+    public CartPage clickOnCartIcon(){
+        shoppingCartIcon.click();
+        return new CartPage(driver);
+    }
+
     public String getPageTitle() {
         return driver.getTitle();
     }

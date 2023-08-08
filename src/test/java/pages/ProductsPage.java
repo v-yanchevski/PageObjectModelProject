@@ -82,7 +82,7 @@ public class ProductsPage extends BasePage {
 
     }
 
-    public CartPage clickOnCartIcon(){
+    public CartPage clickOnCartIcon() {
         shoppingCartIcon.click();
         return new CartPage(driver);
     }

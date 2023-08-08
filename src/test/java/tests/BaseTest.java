@@ -16,10 +16,10 @@ public class BaseTest {
     }
 
 
-//    @AfterMethod
-//    public void tearDown() {
-//        driver.manage().deleteAllCookies();
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().deleteAllCookies();
+        driver.quit();
+    }
 
 }

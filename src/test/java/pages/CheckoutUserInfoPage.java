@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class CheckoutUserInfoPage extends BasePage{
+public class CheckoutUserInfoPage extends BasePage {
     @FindBy(xpath = "//span[contains(@class, 'title')]")
     WebElement title;
     @FindBy(id = "first-name")
@@ -25,7 +25,7 @@ public class CheckoutUserInfoPage extends BasePage{
         super(driver);
     }
 
-    public void setFirstName(String firstName){
+    public void setFirstName(String firstName) {
         wait.until(ExpectedConditions.visibilityOf(firstNameInput));
         firstNameInput.click();
         firstNameInput.sendKeys(firstName);
@@ -47,7 +47,8 @@ public class CheckoutUserInfoPage extends BasePage{
         continueButton.click();
         return new CheckoutOverview(driver);
     }
-    public String getTitle(){
+
+    public String getTitle() {
         return title.getText();
     }
 }

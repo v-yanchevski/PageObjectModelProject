@@ -17,8 +17,6 @@ public class BaseTest {
         System.setProperty("webdriver.chrome.driver", "PATH_TO_chromedriver.exe");
         driver = new ChromeDriver(options);
         driver.get("https://www.saucedemo.com/");
-
-        driver.get("https://www.saucedemo.com/");
     }
 
 

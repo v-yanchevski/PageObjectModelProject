@@ -13,8 +13,8 @@ public class BaseTest {
     public void setUp() {
 
         ChromeOptions options = new ChromeOptions();
-        options.setBinary("PAHT_TO_chrome.exe");
-        System.setProperty("webdriver.chrome.driver", "PAHT_TO_chromedriver.exe");
+        options.setBinary("PATH_TO_chrome.exe");
+        System.setProperty("webdriver.chrome.driver", "PATH_TO_chromedriver.exe");
         driver = new ChromeDriver(options);
         driver.get("https://www.saucedemo.com/");
 
